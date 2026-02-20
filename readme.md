@@ -43,4 +43,192 @@ We will be using Vite.
 
 ---
 
-20:02
+Create the project:
+```
+npm create vite@latest react-portal
+```
+Choose:
+React, JavaScript.
+
+In the vite.config.js file, update port:
+```
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  server: {
+    port: 3000,
+  }
+})
+```
+
+Install dependencies:
+```
+npm install
+```
+
+Run the application:
+```
+npm run dev
+```
+
+In the index.html file, which is the HTML for the landing page, it has the following:
+```
+<body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+```
+The root div is the starting point for generally UI frameworks/libraries, and then in the src folder, there is a main.jsx file, which is the entry point for the React application.
+
+In the below main.jsx code section, it gets that root div from the index.html file we saw earlier, and uses the React components in it:
+```
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+```
+
+The StrictMode checks if anything is deprecated, if any unsafe lifeycle methods are present, context API usage stuff like that.
+
+Delete App.css file.
+
+Install the ES7 extension.
+
+Set up Tailwind (refer docs)
+
+---
+
+Every React component is going to return JSX. We can only return a single element, but can have as many elements inside it:
+```
+const App = () => {
+  return (
+    <div className='text-5xl'>App</div>
+  )
+}
+```
+
+Incorrect:
+```
+const App = () => {
+  return (
+    <div className='text-5xl'>App</div>
+    <p>Another element</p>
+  )
+}
+```
+
+Correct usage:
+```
+const App = () => {
+  return (
+    <div>
+      <div className='text-5xl'>App</div>
+      <p>Another element</p>
+    </div>
+  )
+}
+```
+
+It has to be wrapped in a single element. We can use fragments as well (empty HTML tags) like `<></>` instead of `<div></div>`.
+
+
+## JSX Notes
+
+We can use expressions, or variables inside the JS file, like so:
+```
+const App = () => {
+  const name = 'Sid';
+  const x = 10;
+  const y = 20;
+  return (
+    <div>
+      <div className='text-5xl'>App</div>
+      <p>Hello { name }</p>
+      <p>The sum of { x } and { y } is { x + y }</p>
+    </div>
+  )
+}
+```
+
+We can also loops, and render a list.
+```
+const App = () => {
+  const name = 'Sid';
+  const x = 10;
+  const y = 20;
+  const names = ['S', 'C', 'V', 'X'];
+  return (
+    <div>
+      <div className='text-5xl'>App</div>
+      <p>Hello { name }</p>
+      <p>The sum of { x } and { y } is { x + y }</p>
+      <ul>
+        { names.map((name) => (
+          <li>{ name }</li>
+        )) }
+      </ul>
+    </div>
+  )
+}
+```
+
+The array gives a warning - Each child in a list should have a unique key prop. If it were an object, we could have used the object ID. Since this is an array, we can use the index instead:
+```
+<ul>
+  { names.map((name, index) => (
+    <li key={ index }>{ name }</li>
+  )) }
+</ul>
+```
+
+We can use conditionals in JSX:
+```
+const App = () => {
+  const name = 'Sid';
+  cosnt loggedIn = true;
+
+  return (
+    <div>
+      <div className='text-5xl'>App</div>
+      <p>Hello { name }</p>
+    </div>
+    { loggedIn ? <h1>Hello Member</h1> : <h1>Hello Guest</h1> }
+    { loggedIn && <h1>Hello Member</h1> }
+  )
+}
+```
+
+JSX is what HTML would be.
+
+For styling, naming is used differently. Inline CSS can be used.
+```
+const App = () => {
+  return (
+    <div>
+      <div className='text-5xl'>App</div>
+      <p style={{ color: 'red', fontSize: '24px' }}>Another element</p>
+    </div>
+  )
+}
+```
+So, font-size in CSS usage would be fontSize here in JSX.
+
+We can store these styles in a variable as well:
+```
+const App = () => {
+  const styles = {
+    color: 'red',
+    fontSize: '55px'
+  }
+  return (
+    <div>
+      <div className='text-5xl'>App</div>
+      <p style={ styles }>Another element</p>
+    </div>
+  )
+}
+```
+
+But in this project we won't be doing this because we will be using Tailwind, so we will be adding classes.
+
