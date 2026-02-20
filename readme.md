@@ -410,3 +410,118 @@ Below is how the function is used:
 ```
 When the button is clicked, it calls the function which changes the state. The prevState is the current state value that is set for that state (it can be named anything,) and we update that state value by setting it to opposite of the current value. Note that only that specific JobListing component will be affected.
 
+<br>
+
+## React icons
+
+A small section where the location is present, we want to add an icon. Currently it's not visible. Run the command:
+```
+npm i react-icons
+```
+This will allow to work with Font Awesome, but also Material packages as well. We will use the following component:
+```
+<FaMapMarker className='inline text-lg mb-1 mr-1'></FaMapMarker>
+```
+
+<br>
+
+## React Router
+
+We want more pages in our application, but React doesn't provide routing by itself. Router is a separate package.
+```
+npm i react-router-dom
+```
+
+Create a pages folder under src, and create HomePage.jsx file.
+
+This is the current code in App.jsx for router:
+```
+import React from 'react'
+import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom'
+import HomePage from './pages/HomePage';
+
+const router = createBrowserRouter(
+  createRoutesFromElements(<Route index element={<HomePage></HomePage>}/>)
+);
+
+const App = () => {
+  return (
+    <RouterProvider router={ router }></RouterProvider>
+  )
+}
+
+export default App
+```
+
+Now, we created the HomePage.jsx file, which is a simple React component:
+```
+import React from 'react'
+
+const HomePage = () => {
+  return (
+    <div>HomePage</div>
+  )
+}
+
+export default HomePage
+```
+
+As per my understanding, we set the index route which would be /, and set the element to be loaded as the HomePage component. Next, we initialized the router to be able to access that HomePage.
+
+In the HomePage.jsx, we added the Hero component.
+
+Now, the Navbar, the footer needs to be showed on every page. We will use layouts here.
+
+<br>
+
+## Layouts
+
+1:24:41
+
+Create a layouts folder. A project can have multiple layouts, but for this one we have 1. Create a MainLayout.jsx file, since it will be a component.
+Now, import it in the App.jsx file.
+Then, we need to create a parent route to the rest of our routes.
+
+Any routes that are put in the MainLayout section, will use the MainLayout.
+```
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<MainLayout></MainLayout>}>
+      <Route index element={<HomePage></HomePage>}/>
+    </Route>
+)
+```
+
+Now in the MainLayout file, whatever route or page comes to this layout, will come through Outlet. Below is how it is used:
+```
+const MainLayout = () => {
+  return (
+    <>
+        <Outlet></Outlet>
+    </>
+  )
+}
+```
+
+Now we want the Navbar to be shown on every page, so we will put that in this layout file. This is done like so:
+```
+const MainLayout = () => {
+  return (
+    <>
+        <Navbar></Navbar>
+        <Outlet></Outlet>
+    </>
+  )
+}
+```
+
+Below is the image how it will be displayed:
+
+<p align="center">
+  <img 
+    src="https://github.com/siddhesh2263/react-portal-traversy-media/blob/main/assets/003-layout-navbar-home.png?raw=true"
+    alt="Layout Navbar Home"
+    width="400"
+  />
+</p>
+
