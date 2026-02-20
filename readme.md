@@ -248,6 +248,8 @@ But in this project we won't be doing this because we will be using Tailwind, so
 
 ## Development Notes contd.
 
+Note that when we are migrating code from the HTML page to the React components, we don't need the head section from those HTML pages. It will be handled by React.
+
 Ctrl Shift L to change multiple instances at once. Change class to className.
 
 Create a components folder. Create Navbar.jsx file.
@@ -524,4 +526,85 @@ Below is the image how it will be displayed:
     width="400"
   />
 </p>
+
+Now currently in the HomePage.jsx file page, we just have the Hero section. Add the HomeCard component below it, like so:
+```
+const HomePage = () => {
+  return (
+    <>
+        <Hero></Hero>
+        <HomeCards></HomeCards>
+    </>
+  )
+}
+```
+
+So now instead of putting all this in the App component, we are putting it in the HomePage.
+
+<br>
+
+## Jobs page and Jobs route
+
+So here's the general flow what would be - we add a page, and then we add the route for that page in the App.jsx file.
+
+Create a JobsPage.jsx file, as a React component. Now, we add the route, like so:
+```
+<Route path='/' element={<MainLayout></MainLayout>}>
+  <Route index element={<HomePage></HomePage>}/>
+  <Route path='/jobs' element={<JobsPage></JobsPage>}/>
+</Route>
+```
+
+We won't use a tags, but will use links. Update all the .html href to just /, /jobs, and /add-job in the Navbar component.
+
+We don't want to use a tags because it does a complete page refresh. With a link tag, it doesn't do a refresh. We need to import Link from the react-router-dom library. So, change a tag to Link, and the href to `to`. All these changes are in the Navbar component. Now, there is no page refresh, because it is on the client.
+
+These changes are to be done in the HomeCards component.
+
+Now, the changes are to be done in the JobListing component.
+
+Now, changes in the ViewAllJobs.
+
+Below is one of the changes how it's done:
+```
+const ViewAllJobs = () => {
+  return (
+    <section className="m-auto max-w-lg my-10 px-6">
+        <Link
+            to="/jobs"
+            className="block bg-black text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700"
+        >View All Jobs</Link>
+    </section>
+  )
+}
+```
+The a tag to Link, and href to `to`.
+
+<br>
+
+## Custom 404 page
+
+Create a new page called NotFoundPage.jsx. Copy the section code from the HTML page. Rename class to className, and a tag to Link, href to `to`.
+Since this page has icons, import the icons component.
+
+Now to make this page show on routes that are not present, go to App component. Add a route, and this is how it's done:
+```
+<Route path='*' element={<NotFoundPage></NotFoundPage>}/>
+```
+This means that catch all the routes that are not defined in the Router, to show this NotFoundPage component.
+
+Below is how the custom page would look:
+<p align="center">
+  <img 
+    src="https://github.com/siddhesh2263/react-portal-traversy-media/blob/main/assets/004-page-not-found.png?raw=true"
+    alt="Page Not Found"
+    width="400"
+  />
+</p>
+
+## Highlight active Navbar
+
+Now, see that in the Navbar, we want to highlight the nav buttons in black only on those pages where it is currently on. So the Home button needs to be active when on home page, Jobs for jobs, etc.
+
+These changes are to be done in Navbar component.
 
