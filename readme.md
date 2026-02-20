@@ -232,3 +232,110 @@ const App = () => {
 
 But in this project we won't be doing this because we will be using Tailwind, so we will be adding classes.
 
+---
+
+Ctrl Shift L to change multiple instances at once. Change class to className.
+
+Create a components folder. Create Navbar.jsx file.
+We moved the nav tag section into the Navbar.jsx file. Navbar.jsx was imported in App.jsx.
+Import the logo image from the assets folder:
+```
+import logo from '../assets/images/logo.png';
+```
+Update the src for that image div.
+
+Do the same thing for Hero section.
+
+We will discuss props. In the Hero section, we are using a title and a subtitle. Let's pass it through App.jsx:
+```
+<Hero title='Test title' subtitle='This is the subtitle'></Hero>
+```
+Now in the Hero.jsx file, we will use props to destructure the passed variables:
+```
+const Hero = (props) => {
+  ...
+
+Usage:
+<div className="text-center">
+  <h1
+    className="text-4xl font-extrabold text-white sm:text-5xl md:text-6xl"
+  >
+    { props.title }
+  </h1>
+  <p className="my-4 text-xl text-white">
+    { props.subtitle }
+  </p>
+```
+
+Or we can destructure as:
+```
+const Hero = ({ title, subtitle }) => {
+  ...
+```
+
+We can have default props:
+```
+const Hero = ({ 
+  title = 'Become a React Dev', 
+  subtitle = 'Find the React job that fits your skill set', 
+}) => {
+  ...
+```
+
+Now moving on, there is a card section - for developers, and for employers. In the App.jsx file, we can use a Card component, and put the individual card content through the App.jsx file. However, we want to keep the App.jsx file clean, so we will create a wrapper component to hold these cards instead. We will call this component HomeCard. Create a HomeCard.jsx file.
+
+Now as discussed earlier, we will create individual Card component.
+
+Here's what's happened:
+```
+const Card = ({ children, bg = 'bg-gray-100' }) => {
+  return (
+    <div className={`${bg} p-6 rounded-lg shadow-md`}>
+        { children }
+    </div>
+  )
+}
+```
+This is the structure in the Card component. Now this Card will be used in the HomeCards component, like so:
+```
+const HomeCards = () => {
+  return (
+    <section className="py-4">
+      <div className="container-xl lg:container m-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 rounded-lg">
+          <Card>
+            <h2 className="text-2xl font-bold">For Developers</h2>
+            <p className="mt-2 mb-4">
+              Browse our React jobs and start your career today
+            </p>
+            <a
+              href="/jobs.html"
+              className="inline-block bg-black text-white rounded-lg px-4 py-2 hover:bg-gray-700"
+            >
+              Browse Jobs
+            </a>
+          </Card>
+          <Card bg='bg-indigo-100'>
+            <h2 className="text-2xl font-bold">For Employers</h2>
+            <p className="mt-2 mb-4">
+              List your job to find the perfect developer for the role
+            </p>
+            <a
+              href="/add-job.html"
+              className="inline-block bg-indigo-500 text-white rounded-lg px-4 py-2 hover:bg-indigo-600"
+            >
+              Add Job
+            </a>
+          </Card>
+        </div>
+      </div>
+    </section>
+  )
+}
+```
+What this indicates is that the children used as props in the Card component will wrap the whole div that was used in the original HTML file. Now, we can add more props to this Card by passing style variables, such as to control the background in this case.
+
+---
+
+Now we are on the Browse Jobs section. Here, we will use JSON data to load this data.
+
