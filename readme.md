@@ -608,3 +608,73 @@ Now, see that in the Navbar, we want to highlight the nav buttons in black only 
 
 These changes are to be done in Navbar component.
 
+Change all instances of Link to NavLink. NavLink adds a class to the active link. Now, we need to use that class to set the styling for the links, like so:
+```
+<NavLink
+  to="/"
+  className={({ isActive }) => isActive ? 'bg-black text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2' : 'text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'}
+  >Home</NavLink>
+<NavLink
+```
+If the link isActive is true, which it will be when it's on the home page, it will have a black background. Otherwise, it won't.
+
+Instead of having this for all the links, we will create a function at the top, and then use it for the individual links:
+```
+// Function:
+const linkClass = ({ isActive }) => 
+    isActive ? 'bg-black text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2' : 'text-white hover:bg-gray-900 hover:text-white rounded-md px-3 py-2'
+  
+// Usage in indivisual links:
+<NavLink
+  to="/add-job"
+  className={linkClass}
+  >Add Job
+</NavLink>
+```
+
+<br>
+
+## Jobs page
+
+In the JobsPage page, import the JobListings component, which loads all the jobs from the JSON file. But now the problem is, only 3 are shown, because we used slice. We will use a prop in the JobListings component called isHome, which by default is set to false.
+
+Now we are passing this JobListings component from the HomePage page. Over here, add the prop of isHome. So, final changes in HomePage page are as follows:
+```
+const HomePage = () => {
+  return (
+    <>
+        <Hero></Hero>
+        <HomeCards></HomeCards>
+        <JobListings isHome={ true }></JobListings>
+        <ViewAllJobs></ViewAllJobs>
+    </>
+  )
+}
+```
+
+Below is the final changes in the JobListings component, where the isHome prop is passed:
+```
+const JobListings = ({ isHome = false }) => {
+    const jobListings = isHome ? jobs.slice(0, 3) : jobs;
+  return (
+    <section className="bg-blue-50 px-4 py-10">
+      <div className="container-xl lg:container m-auto">
+        <h2 className="text-3xl font-bold text-indigo-500 mb-6 text-center">
+          { isHome ? 'Recent Jobs' : 'Browse Jobs' }
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {jobListings.map((job) => (
+                <JobListing key={ job.id } job={ job }></JobListing>
+            ))}
+        </div>
+      </div>
+      </section>
+  )
+}
+```
+
+<br>
+
+## JSON server setup
+
+We will use json-server.
