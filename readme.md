@@ -353,4 +353,60 @@ What this indicates is that the children used as props in the Card component wil
 
 Now we are on the Browse Jobs section. Here, we will use JSON data to load this data.
 
-55:32
+For now, we will use a JSON file. Remove the { and the jobs: field, let it be from [. We now have an array of jobs.
+
+Again, instead of passing it from App.jsx file, we will create a component that does the listing of the jobs, and then another component that holds data for one job.
+
+Now, we will import the jobs.json in the JobListing component, and use the map function to list it out. We will later switch to JSON server.
+
+Copy one of the job listing div, and paste it inside the map function (we will use it to iterate over the JSON jobs data.) Be sure to modify and not delete the wrong divs.
+
+Now in JobListings component, we added the HTML and iterated over the JSON array. Let's put that in a separate component. Create a component called JobListing (previous one was JobListings.) This is how the updated JobListings component looks like:
+```
+const JobListings = () => {
+  return (
+    <section className="bg-blue-50 px-4 py-10">
+      <div className="container-xl lg:container m-auto">
+        <h2 className="text-3xl font-bold text-indigo-500 mb-6 text-center">
+          Browse Jobs
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {jobs.map((job) => (
+                <JobListing job={ job }></JobListing>
+            ))}
+        </div>
+      </div>
+      </section>
+  )
+}
+```
+The job is passed as a prop to the JobListing component.
+
+<br>
+
+## States
+
+There are 2 types of states:
+- Component state, which relates to a single component, like the Navbar, HomeCards, etc.
+- App level or global state, which relates to the entire app, and can be passed down to components.
+
+We will look at components state.
+
+In the JobListing, we want a button that says show more description, which is a toggle button. This component will have a piece of state called the showFullDescription, which can be changed when clicked on the button.
+
+Below is the declaration for that state:
+```
+const [showFullDescription, setShowFullDescription] = useState(false);
+```
+Our state will have 2 values - true or false. By default, we want it to be false state. In the brackets:
+- The first paramater is the name of that state,
+- The 2nd param is the name of the function we call to change that state.
+
+Below is how the function is used:
+```
+<button onClick={ () => setShowFullDescription((prevState) => !prevState) } className='text-indigo-500 mb-5 hover:text-indigo-600'>
+    {showFullDescription ? 'Less' : 'More'}
+</button>
+```
+When the button is clicked, it calls the function which changes the state. The prevState is the current state value that is set for that state (it can be named anything,) and we update that state value by setting it to opposite of the current value. Note that only that specific JobListing component will be affected.
+
