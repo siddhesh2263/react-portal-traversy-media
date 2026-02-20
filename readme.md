@@ -677,4 +677,39 @@ const JobListings = ({ isHome = false }) => {
 
 ## JSON server setup
 
-We will use json-server.
+1:44:10
+
+We will use json-server. Install it:
+```
+npm i -D json-server
+```
+
+Configure the command in the package.json file, under the scripts section:
+```
+"server": "json-server --watch src/jobs.json --port 8000"
+```
+
+Run the command:
+```
+npm run server
+```
+
+This gives the path where the jobs json data is hosted, as seen in the image:
+<p align="center">
+  <img 
+    src="https://github.com/siddhesh2263/react-portal-traversy-media/blob/main/assets/005-json-server.png?raw=true"
+    alt="JSON Server"
+    width="400"
+  />
+</p>
+
+It is at `http://localhost:8000/jobs`. Now in the browser we can access a particular job by passing the ID, like `http://localhost:8000/jobs/1`.
+
+Now, we need to be able to fetch this data, and this is done from the JobListings component. This component is being used in the HomePage and the JobsPage. We no longer will be using the job files, but will be making a request. We will be doing that inside of a useEffect hook.
+
+<br>
+
+## useEffect hook
+
+The useEffect hook allows the components to have side effects. We want a side effect of fetching the data when the component renders. And when we get those jobs from the API, we want to put them in state, so we also want to bring in useState.
+
