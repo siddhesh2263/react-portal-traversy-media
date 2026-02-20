@@ -1,5 +1,7 @@
 # React Portal
 
+## (in development)
+
 Frontend for a job listing website.
 
 React is a JS library to build user interfaces.
@@ -22,6 +24,8 @@ React uses something called the virtual DOM (document object model.) This is a l
 
 As per the author, Vue JS and Swell do things in a lot more straighforward way.
 
+<br>
+
 ## Components
 They are reusable piece of code that can be used to build elements on a page. They can be thought as custom HTML elements. This allows to break down complex UIs into smaller, manageable pieces, and makes code easier to maintain and scale. We will be using functional components in this project. Components can take in props, that are arguments or attributes. They can hold their own state.
 
@@ -41,7 +45,18 @@ SSG (static site generation) - Gatsby generates static HTML files at build time 
 
 We will be using Vite.
 
----
+Below is the project homepage:
+<p align="center">
+  <img 
+    src="https://github.com/siddhesh2263/react-portal-traversy-media/blob/main/assets/002-home-page.png?raw=true"
+    alt="Home Page"
+    width="600"
+  />
+</p>
+
+<br>
+
+## Development Notes
 
 Create the project:
 ```
@@ -97,7 +112,7 @@ Install the ES7 extension.
 
 Set up Tailwind (refer docs)
 
----
+## JSX Recap
 
 Every React component is going to return JSX. We can only return a single element, but can have as many elements inside it:
 ```
@@ -131,9 +146,6 @@ const App = () => {
 ```
 
 It has to be wrapped in a single element. We can use fragments as well (empty HTML tags) like `<></>` instead of `<div></div>`.
-
-
-## JSX Notes
 
 We can use expressions, or variables inside the JS file, like so:
 ```
@@ -232,7 +244,9 @@ const App = () => {
 
 But in this project we won't be doing this because we will be using Tailwind, so we will be adding classes.
 
----
+<br>
+
+## Development Notes contd.
 
 Ctrl Shift L to change multiple instances at once. Change class to className.
 
@@ -335,7 +349,8 @@ const HomeCards = () => {
 ```
 What this indicates is that the children used as props in the Card component will wrap the whole div that was used in the original HTML file. Now, we can add more props to this Card by passing style variables, such as to control the background in this case.
 
----
+<br>
 
 Now we are on the Browse Jobs section. Here, we will use JSON data to load this data.
 
+55:32
