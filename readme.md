@@ -713,3 +713,49 @@ Now, we need to be able to fetch this data, and this is done from the JobListing
 
 The useEffect hook allows the components to have side effects. We want a side effect of fetching the data when the component renders. And when we get those jobs from the API, we want to put them in state, so we also want to bring in useState.
 
+We defined state like this:
+```
+const [jobs, setJobs] = useState([]);
+```
+The default value for jobs is going to be an empty array. We will make a request when the component loads through the useEffect, and then we will fill this empty array with the response from the API.
+
+We will also pass a loading state, which will show loading when the data is being fetched:
+```
+const [loading, setLoading] = useState(true);
+```
+The default will be true, meaning data is being loaded, and then set to false once data fetched.
+
+Now we will define the useEffect. It takes 2 parameters:
+- A function,
+- A dependency array
+
+We want to have an empty array in most cases. What that means is when the value changes inside that array, it will call the function, i.e this useEffect will run. You want to have an empty array in there, otherwise it will run as a never ending loop.
+
+We need to create a separate async function inside of it.
+
+We will briefly understand the below code section:
+```
+const [jobs, setJobs] = useState([]);
+const [loading, setLoading] = useState(true);
+
+useEffect( () => {
+  const fetchJobs = async () => {
+    try {
+      const res = await fetch('http://localhost:8000/jobs');
+      const data = await res.json();
+      setJobs(data);
+    } catch (error) {
+      console.log('Error fetching data', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+  fetchJobs();
+}, []);
+```
+
+There are 2 states - for job, and for loading. Now, the above code shows how asynch and await can be used inside of useEffect hook. A request is made to the json server, and once the data is received, it is stored in the jobs state, using the setJobs useState hook. If any error it is presented in logs. Then, since finally is anyways run, it will update the loading state. In this way now, the UI is able to load the listings from an API.
+
+We add the loading component just before it is rendered.
+
+1:54:14
