@@ -759,3 +759,93 @@ There are 2 states - for job, and for loading. Now, the above code shows how asy
 We add the loading component just before it is rendered.
 
 1:54:14
+
+<br>
+
+## Loading spinners
+
+Install the below package:
+```
+npm i react-spinners
+```
+
+Create a component called Spinner.jsx under components folder. Below is the Spinner component code:
+```
+const override = {
+    display: 'block',
+    margin: '100px auto'
+}
+
+const Spinner = ({ loading }) => {
+  return (
+    <ClipLoader 
+        color='#4338ca'
+        loading={loading}
+        cssOverride={override}
+        size={150}
+    >
+    </ClipLoader>
+  )
+}
+```
+It uses ClipLoader component, and we need to pass the loading as a prop from the JobListings component. CSS override is to override the style with custom styling. Changes need to be done in JobListings component, like so:
+```
+<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {loading ? (<Spinner loading={loading}></Spinner>) : (
+      <>
+        {jobs.map((job) => (
+          <JobListing key={ job.id } job={ job }></JobListing>
+        ))}
+      </>)
+    }
+</div>
+```
+The Spinner component is imported and used here.
+
+We can see the spinner for a quick instance, but it is not in the middle. This is because of the grid. Instead, use that grid classname div inside the jobs.map conditional, rather than keeping it outside.
+
+<br>
+
+## Homepage reduced listings
+
+Initially we had 3 listings in HomePage, and all of them in JobsPage. However, now it's showing all of them again in HomePage. We can work around this, sincce we have the isHome prop available to us. We need to make changes in the useEffect hook.
+
+Use of ternary operator to use multiple URLs:
+```
+const apiUrl = isHome ? 'http://localhost:8000/jobs?_limit=3' : 'http://localhost:8000/jobs';
+```
+
+As of now, he _limit=3 seems to be deprecated, and does not work. We will display all jobs in the HomePage as of now.
+
+<br>
+
+## Creating a proxy
+
+Changes are done in the vite.config.js file, where the below config is added:
+```
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  server: {
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      }
+    }
+  }
+})
+```
+
+So when we hit /api/jobs, it is going to hit localhost/jobs.
+
+Make changes in the JobListings component:
+```
+const apiUrl = isHome ? '/api/jobs?_limit=3' : '/api/jobs';
+```
+
+2:01:00
+
+<br>
+
