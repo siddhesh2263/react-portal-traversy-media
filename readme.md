@@ -849,3 +849,16 @@ const apiUrl = isHome ? '/api/jobs?_limit=3' : '/api/jobs';
 
 <br>
 
+## Single job page
+
+We will be using data loader from React Router. But first we need to create the actual page for the single jobs.
+
+Create a JobPage page under pages folder, and then add route in the App component:
+```
+<Route path='/jobs/:id' element={<JobPage></JobPage>}/>
+```
+The :id indicates a variable is passed.
+
+Update the path in JobListing component - change /job/id to /jobs/id.
+
+2:06:06
