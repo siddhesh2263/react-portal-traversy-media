@@ -862,3 +862,26 @@ The :id indicates a variable is passed.
 Update the path in JobListing component - change /job/id to /jobs/id.
 
 2:06:06
+
+## Data loader
+
+### First useEffect used
+
+A data loader can be defined in a file, and then can be exported to other files where it can be used there as well. We can use this as a global state, and pass it whatever the job is to other components.
+
+We will create this in the JobPage page.
+
+For now, let's use useEffect first.
+
+We will use the same code from try-catch block used in the JobListings component. For getting the job IDs, we will use the useParams hook. Import it in the file.
+
+We imported the Spinner class as well, and wrote the logic for loading state. Now, the component returns a h1 tag with the title of the job as of now. Make sure to run the JSON server before testing this page. Commands as below:
+```
+npm run server
+npm run dev
+```
+
+So, the JobPage component after it renders, it has a side effect of fetching data from the JSON server that is running. We are getting the ID by using the useParams hook (check the JobListing component, in which we passed the id as a param.) Once we get the data, we are setting it to state. If this data is being fetched, the loading state is true, and the Spinner component is rendered until the data is fetched, after which the title is displayed. This is how we get data using useEffect.
+
+Now let's see how to do this using react router's data loader.
+
