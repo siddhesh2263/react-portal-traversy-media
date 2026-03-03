@@ -883,5 +883,73 @@ npm run dev
 
 So, the JobPage component after it renders, it has a side effect of fetching data from the JSON server that is running. We are getting the ID by using the useParams hook (check the JobListing component, in which we passed the id as a param.) Once we get the data, we are setting it to state. If this data is being fetched, the loading state is true, and the Spinner component is rendered until the data is fetched, after which the title is displayed. This is how we get data using useEffect.
 
+### Data loader usage
+
 Now let's see how to do this using react router's data loader.
 
+Keep only useParams and Spinner import components.
+
+This is how we defined the jobLoader data loader:
+```
+const jobLoader = async ({ params }) => {
+  const res = await fetch(`/api/jobs/${params.id}`);
+  const data = await res.json();
+  return data;
+}
+
+export { JobPage as default, jobLoader };
+```
+
+The JobPage component needs to be returned as default, and then we export the jobLoader function.
+
+Now, in the App component, we have imported the Jobpage. Import the data loader as well, like so:
+```
+import JobPage, { jobLoader } from './pages/JobPage';
+```
+
+Now in the Route, is passed like this:
+```
+<Route path='/jobs/:id' element={<JobPage></JobPage>} loader={jobLoader}/>
+```
+
+Now, we need to be able to use it in the JobPage component (from where it was exported, but not used.) We will use the useLoaderData hook from react-router-dom.
+
+And then, initialize it:
+```
+const { id } = useParams();
+const job = useLoaderData();
+```
+The title is now visible.
+
+In this way, we can use the data loader function.
+
+### JobPage UI
+
+Now, we need to work on the HTML for this. From the theme files, copy the jobs.html content. Update class to className, a tag to Link, and href to `to`. Update href jobs.html to /jobs.
+
+Also, we need to import the arrow component used after Back to Job Listings button (skipped for now - 2:17:00.)
+
+2:20:19
+
+<p align="center">
+  <img 
+    src="https://github.com/siddhesh2263/react-portal-traversy-media/blob/main/assets/007-job-page.gif?raw=true"
+    alt="Job Page UI"
+    width="400"
+  />
+</p>
+
+<br>
+
+## Project Flow Demo
+
+Below is a GIF project flow for the features implemented:
+
+<p align="center">
+  <img 
+    src="https://github.com/siddhesh2263/react-portal-traversy-media/blob/main/assets/008-full-flow.gif?raw=true"
+    alt="Job Page UI"
+  />
+</p>
+
+<br>
