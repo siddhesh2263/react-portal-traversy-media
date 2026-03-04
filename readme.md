@@ -2,6 +2,37 @@
 
 <!-- ## (in development) -->
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [React Overview](#react-overview)
+- [Components](#components)
+- [State](#state)
+- [Hooks](#hooks)
+- [JSX (JavaScript Syntax Extension)](#jsx-javascript-syntax-extension)
+- [SPA, SSR, and SSG](#spa-ssr-and-ssg)
+- [Development Notes](#development-notes)
+- [JSX Recap](#jsx-recap)
+- [Development Notes contd.](#development-notes-contd)
+- [States](#states)
+- [React Icons](#react-icons)
+- [React Router](#react-router)
+- [Layouts](#layouts)
+- [Jobs Page and Jobs Route](#jobs-page-and-jobs-route)
+- [Custom 404 Page](#custom-404-page)
+- [Highlight Active Navbar](#highlight-active-navbar)
+- [Jobs Page](#jobs-page)
+- [JSON Server Setup](#json-server-setup)
+- [useEffect Hook](#useeffect-hook)
+- [Loading Spinners](#loading-spinners)
+- [Homepage Reduced Listings](#homepage-reduced-listings)
+- [Creating a Proxy](#creating-a-proxy)
+- [Single Job Page](#single-job-page)
+- [Data Loader](#data-loader)
+- [Project Flow Demo](#project-flow-demo)
+
+<br>
+
 ## Introduction
 
 This project demonstrates the development of a job listing frontend using React. It introduces key React concepts such as components, JSX, props, state, hooks, and client-side routing. Through a hands-on implementation, the project shows how React helps organize UI logic and build interactive web interfaces.
