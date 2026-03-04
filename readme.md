@@ -1,12 +1,25 @@
-# React Portal
+# React Job Portal
 
-## (in development)
+<!-- ## (in development) -->
 
-Frontend for a job listing website.
+## Introduction
 
-React is a JS library to build user interfaces.
+This project demonstrates the development of a job listing frontend using React. It introduces key React concepts such as components, JSX, props, state, hooks, and client-side routing. Through a hands-on implementation, the project shows how React helps organize UI logic and build interactive web interfaces.
 
-Angular is a framework. React is a UI library.
+<p align="center">
+  <img 
+    src="https://github.com/siddhesh2263/react-portal-traversy-media/blob/main/assets/008-full-flow.gif?raw=true"
+    alt="Job Page UI"
+  />
+</p>
+
+<!-- Frontend for a job listing website. -->
+
+<br>
+
+## React Overview
+
+React is a JS library to build user interfaces. Angular is a framework. React is a UI library.
 
 Ecosystem of React is huge - can be used for SPA, SSR pages, and static pages.
 
@@ -22,21 +35,29 @@ React uses something called the virtual DOM (document object model.) This is a l
   />
 </p>
 
-As per the author, Vue JS and Swell do things in a lot more straighforward way.
+Author opinion: Vue JS and Swell do things in a lot more straighforward way.
 
 <br>
 
 ## Components
 They are reusable piece of code that can be used to build elements on a page. They can be thought as custom HTML elements. This allows to break down complex UIs into smaller, manageable pieces, and makes code easier to maintain and scale. We will be using functional components in this project. Components can take in props, that are arguments or attributes. They can hold their own state.
 
+<br>
+
 ## State
 This represents the data that a component manages internally, and could be used in form input data, fetched data, and UI-related data. To define state in a functional component, we can use hooks. useState hook is used for this. This function will return an array with 2 elements: the current state value, and the function to update that state. There is also global state. For instance, when the data from a database needs to be shared among all components.
+
+<br>
 
 ## Hooks
 React hooks are functions that enable functional components to use state and other React features without writing a class. React used to have classes, and these classes had life cycle methods, which were methods that ran at specific times during the component rendering process. Functional components don't have a lifecycle methods, because they are not a class, so hooks allows us to do the same work which the life cycle methods used to do, such as fetch state, or perform data fetching, etc. useState and useEffect are 2 important hooks. All hooks start with the word use, and you can also create custom hooks within your components, which basically can do anything.
 
+<br>
+
 ## JSX (JavaScript Syntax Extension)
 Components have state associated with it (which just means what data they have,) and it can also take in props. JSX is returned from a React component, and it is HTML-like syntax within JavaScript. JSX is dynamic, and it is what HTML would be if it were a programming language. JSX can have loops, conditionals, etc. There are slight differences in naming.
+
+<br>
 
 ## SPA, SSR, and SSG
 SPA (single page app) loads a single HTML file and a JS bundle, which loads the entire UI. So when a route is hit, it does not go to server, but JS loads that content. SPA are good for fast, dynamic pages. Can have issues with SEO.
@@ -57,6 +78,8 @@ Below is the project homepage:
 <br>
 
 ## Development Notes
+
+Below are the development notes, and they follow the flow in which the application was built.
 
 Create the project:
 ```
@@ -111,6 +134,8 @@ Delete App.css file.
 Install the ES7 extension.
 
 Set up Tailwind (refer docs)
+
+<br>
 
 ## JSX Recap
 
@@ -414,7 +439,7 @@ When the button is clicked, it calls the function which changes the state. The p
 
 <br>
 
-## React icons
+## React Icons
 
 A small section where the location is present, we want to add an icon. Currently it's not visible. Run the command:
 ```
@@ -543,7 +568,7 @@ So now instead of putting all this in the App component, we are putting it in th
 
 <br>
 
-## Jobs page and Jobs route
+## Jobs Page and Jobs Route
 
 So here's the general flow what would be - we add a page, and then we add the route for that page in the App.jsx file.
 
@@ -582,7 +607,7 @@ The a tag to Link, and href to `to`.
 
 <br>
 
-## Custom 404 page
+## Custom 404 Page
 
 Create a new page called NotFoundPage.jsx. Copy the section code from the HTML page. Rename class to className, and a tag to Link, href to `to`.
 Since this page has icons, import the icons component.
@@ -602,7 +627,9 @@ Below is how the custom page would look:
   />
 </p>
 
-## Highlight active Navbar
+<br>
+
+## Highlight Active Navbar
 
 Now, see that in the Navbar, we want to highlight the nav buttons in black only on those pages where it is currently on. So the Home button needs to be active when on home page, Jobs for jobs, etc.
 
@@ -634,7 +661,7 @@ const linkClass = ({ isActive }) =>
 
 <br>
 
-## Jobs page
+## Jobs Page
 
 In the JobsPage page, import the JobListings component, which loads all the jobs from the JSON file. But now the problem is, only 3 are shown, because we used slice. We will use a prop in the JobListings component called isHome, which by default is set to false.
 
@@ -675,7 +702,7 @@ const JobListings = ({ isHome = false }) => {
 
 <br>
 
-## JSON server setup
+## JSON Server Setup
 
 1:44:10
 
@@ -709,7 +736,7 @@ Now, we need to be able to fetch this data, and this is done from the JobListing
 
 <br>
 
-## useEffect hook
+## useEffect Hook
 
 The useEffect hook allows the components to have side effects. We want a side effect of fetching the data when the component renders. And when we get those jobs from the API, we want to put them in state, so we also want to bring in useState.
 
@@ -762,7 +789,7 @@ We add the loading component just before it is rendered.
 
 <br>
 
-## Loading spinners
+## Loading Spinners
 
 Install the below package:
 ```
@@ -806,7 +833,7 @@ We can see the spinner for a quick instance, but it is not in the middle. This i
 
 <br>
 
-## Homepage reduced listings
+## Homepage Reduced Listings
 
 Initially we had 3 listings in HomePage, and all of them in JobsPage. However, now it's showing all of them again in HomePage. We can work around this, sincce we have the isHome prop available to us. We need to make changes in the useEffect hook.
 
@@ -819,7 +846,7 @@ As of now, he _limit=3 seems to be deprecated, and does not work. We will displa
 
 <br>
 
-## Creating a proxy
+## Creating a Proxy
 
 Changes are done in the vite.config.js file, where the below config is added:
 ```
@@ -849,7 +876,7 @@ const apiUrl = isHome ? '/api/jobs?_limit=3' : '/api/jobs';
 
 <br>
 
-## Single job page
+## Single Job Page
 
 We will be using data loader from React Router. But first we need to create the actual page for the single jobs.
 
@@ -865,7 +892,7 @@ Update the path in JobListing component - change /job/id to /jobs/id.
 
 ## Data loader
 
-### First useEffect used
+### useEffect Usage Demonstration
 
 A data loader can be defined in a file, and then can be exported to other files where it can be used there as well. We can use this as a global state, and pass it whatever the job is to other components.
 
